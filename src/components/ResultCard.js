@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
+import defaultPic from '../../assets/default.jpg';
 
 const MAX_CHARS_NAME = 30;
 
@@ -20,11 +21,13 @@ const ResultCard = (props) => {
     return name;
   }
 
+  const imageUrl = image_url ? { uri: image_url } : defaultPic;
+
   return (
     <View style={ styles.container }>
       <Image 
         style={ styles.image }
-        source={{ uri: image_url }}
+        source={ imageUrl }
       />
       <Text style={ styles.title }>{ formatName(name) }</Text>
       <Text style={ styles.subtitle }>{ rating } Stars, { review_count } Reviews, { price }</Text>
