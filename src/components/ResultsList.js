@@ -1,50 +1,27 @@
 import React from 'react';
-import { ScrollView, FlatList, Text, Image, StyleSheet } from 'react-native';
+import { View, FlatList, Text, Image, StyleSheet } from 'react-native';
 import ResultCard from './ResultCard';
 
-const ResultsList = (props) => {
-  const { 
-    cheapestPrice,
-    averagePrice,
-    expensivePrice
-  } = props.businesses
+const ResultsList = ({ title, data }) => {
   return (
-    <ScrollView style={ styles.container }>
-      <Text style={ styles.title } >Cost Effective</Text>
+    <View style={ styles.container }>
+      <Text style={ styles.title } > { title }</Text>
       <FlatList 
         style={ styles.list }
+        keyExtractor={ result => result.id }
         horizontal
         showsHorizontalScrollIndicator={ false }
-        data={ cheapestPrice }
+        data={ data }
         renderItem={ ({ item }) => <ResultCard business={ item } />
         }
       />
-      <Text style={ styles.title }>Bit Pricer</Text>
-      <FlatList 
-        style={ styles.list }
-        horizontal
-        showsHorizontalScrollIndicator={ false }
-        data={ averagePrice }
-        renderItem={ ({ item }) => <ResultCard business={ item } />
-        }
-      />
-      <Text style={ styles.title }>Big Spender!</Text>
-      <FlatList 
-        style={ styles.list }
-        horizontal
-        showsHorizontalScrollIndicator={ false }
-        data={ expensivePrice }
-        renderItem={ ({ item }) => <ResultCard business={ item } />
-        }
-      />
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     paddingLeft: 15,
-    marginBottom: 150
   },
 
   title: {
