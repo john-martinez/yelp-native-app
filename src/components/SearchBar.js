@@ -9,6 +9,7 @@ const SearchBar = ({
   onTermSubmit,
   value
 }) => {
+
   return (
     <View style={ styles.searchBarContainer }>
       <MaterialIcons 
@@ -21,7 +22,7 @@ const SearchBar = ({
         autoCorrect={ false }
         placeholder={ placeholder }
         value={ value }
-        onChangeText={ text => onChangeHandler(text) } 
+        onChangeText={ onChangeHandler } 
         onEndEditing={ onTermSubmit }
       />
     </View>
