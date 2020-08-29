@@ -1,20 +1,28 @@
 import React from 'react';
 import { TextInput, StyleSheet, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
+import { onChange } from 'react-native-reanimated';
 
-const SearchBar = () => {
+const SearchBar = ({
+  placeholder,
+  onChangeHandler,
+  onTermSubmit,
+  value
+}) => {
   return (
     <View style={ styles.searchBarContainer }>
       <MaterialIcons 
         name="search" 
-        size={ 30 } 
-        color="black" 
+        style={ styles.icon }
       />
       <TextInput
         style={ styles.textInput }
         autoCapitalize="none"
         autoCorrect={ false }
-        placeholder="Search"
+        placeholder={ placeholder }
+        value={ value }
+        onChangeText={ text => onChangeHandler(text) } 
+        onEndEditing={ onTermSubmit }
       />
     </View>
   )
@@ -24,13 +32,18 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     flexDirection: 'row',
     backgroundColor: '#F0EEEE',
-    padding: 15,
     margin: 10,
     borderRadius: 5,
+    height: 50,
+    paddingLeft: 5,
   },
   textInput: {
     marginLeft: 5,
     flex: 1
+  },
+  icon: {
+    alignSelf: "center",
+    fontSize: 35
   }
 })
 
