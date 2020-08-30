@@ -5,35 +5,24 @@ export default () => {
   const [searchResults, setSearchResults] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
 
-  const requestWithPriceFilter = (priceFilter, searchInput="sushi") => {
-    return yelp.get('/search', {
-      params: {
-        limit: 50,
-        term: searchInput,
-        location: 'mississauga',
-        price: priceFilter
-      }
-    })
-  }
-  const searchApi = (searchInput) => {
-    Promise.all([requestWithPriceFilter('1', searchInput), requestWithPriceFilter('2', searchInput), requestWithPriceFilter('3', searchInput)])
-      .then(([
-        cheapestPrice, 
-        averagePrice, 
-        expensivePrice 
-      ]) => {
-        setSearchResults({
-          cheapestPrice: cheapestPrice.data.businesses,
-          averagePrice: averagePrice.data.businesses,
-          expensivePrice: expensivePrice.data.businesses
-        })
-        setErrorMessage('');
+  const searchApi = async searchInput => {
+    try {
+      const results = await yelp.get('/search', {
+        params: {
+          limit: 50,
+          term: searchInput,
+          location: 'mississauga',
+        }
       })
-      .catch( ()=> setErrorMessage('Something went wrong'))
+      setSearchResults(results.data.businesses);
+      setErrorMessage('');
+    } catch (err) {
+      setErrorMessage('Something went wrong...')
+    }
   }
 
   useEffect(()=>{
-    searchApi('pizza')
+    searchApi('pizza');
   }, [])
 
   return [searchResults, searchApi, errorMessage]

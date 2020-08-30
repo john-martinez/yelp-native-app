@@ -7,7 +7,8 @@ import useResults from '../hooks/useResults';
 const SearchScreen = () => {
   const [searchInput, setSearchInput] = useState('');
   const [searchResults, searchApi, errorMessage] = useResults()
-
+  
+  const filterResultsByPrice = priceFilter => searchResults.filter(business => business.price === priceFilter)
   return (
     <ScrollView>
       <SearchBar 
@@ -18,11 +19,13 @@ const SearchScreen = () => {
       />
       { errorMessage
         ? <Text>{ errorMessage }</Text>
-        : <View>
-          <ResultsList title="Cost Effective" data={ searchResults.cheapestPrice }/>
-          <ResultsList title="Bit Pricier" data={ searchResults.averagePrice }/>
-          <ResultsList title="Big Spender" data={ searchResults.expensivePrice }/>
-        </View>
+        : searchResults && searchResults.length && (
+          <View>
+            <ResultsList title="Cost Effective" data={ filterResultsByPrice('$') }/>
+            <ResultsList title="Bit Pricier" data={ filterResultsByPrice('$$') }/>
+            <ResultsList title="Big Spender" data={ filterResultsByPrice('$$$') }/>
+          </View>
+        )
       }
     </ScrollView>
   )
