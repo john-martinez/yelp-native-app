@@ -11,10 +11,13 @@ const ResultCard = (props) => {
     image_url,
     review_count,
     rating,
+    id,
     price
   } = props.business;
 
+  const imageUrl = image_url ? { uri: image_url } : defaultPic;
   const navigation = useNavigation();
+  
   const formatName = (name) => {
     if (name.length >= MAX_CHARS_NAME) {
       return name.slice(0,MAX_CHARS_NAME) + '...'
@@ -23,10 +26,8 @@ const ResultCard = (props) => {
     return name;
   }
 
-  const imageUrl = image_url ? { uri: image_url } : defaultPic;
-
   return (
-    <TouchableOpacity onPress={ () => navigation.navigate('ResultDetails') }>
+    <TouchableOpacity onPress={ () => navigation.navigate('ResultDetails', { id }) }>
       <View style={ styles.container } >
         <Image 
           style={ styles.image }

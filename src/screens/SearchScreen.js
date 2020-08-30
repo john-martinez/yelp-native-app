@@ -10,7 +10,6 @@ const SearchScreen = props => {
   
   const filterResultsByPrice = priceFilter => searchResults.filter(business => business.price === priceFilter);
 
-  console.log(props.navigation.navigate);
   return (
     <>
       <SearchBar 
