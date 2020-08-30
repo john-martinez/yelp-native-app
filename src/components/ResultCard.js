@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import defaultPic from '../../assets/default.jpg';
 
 const MAX_CHARS_NAME = 30;
@@ -13,6 +14,7 @@ const ResultCard = (props) => {
     price
   } = props.business;
 
+  const navigation = useNavigation();
   const formatName = (name) => {
     if (name.length >= MAX_CHARS_NAME) {
       return name.slice(0,MAX_CHARS_NAME) + '...'
@@ -24,14 +26,16 @@ const ResultCard = (props) => {
   const imageUrl = image_url ? { uri: image_url } : defaultPic;
 
   return (
-    <View style={ styles.container }>
-      <Image 
-        style={ styles.image }
-        source={ imageUrl }
-      />
-      <Text style={ styles.title }>{ formatName(name) }</Text>
-      <Text style={ styles.subtitle }>{ rating } Stars, { review_count } Reviews, { price }</Text>
-    </View>
+    <TouchableOpacity onPress={ () => navigation.navigate('ResultDetails') }>
+      <View style={ styles.container } >
+        <Image 
+          style={ styles.image }
+          source={ imageUrl }
+        />
+        <Text style={ styles.title }>{ formatName(name) }</Text>
+        <Text style={ styles.subtitle }>{ rating } Stars, { review_count } Reviews, { price }</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

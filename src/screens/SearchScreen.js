@@ -4,11 +4,13 @@ import SearchBar from '../components/SearchBar';
 import ResultsList from '../components/ResultsList';
 import useResults from '../hooks/useResults';
 
-const SearchScreen = () => {
+const SearchScreen = props => {
   const [searchInput, setSearchInput] = useState('');
-  const [searchResults, searchApi, errorMessage] = useResults()
+  const [searchResults, searchApi, errorMessage] = useResults();
   
-  const filterResultsByPrice = priceFilter => searchResults.filter(business => business.price === priceFilter)
+  const filterResultsByPrice = priceFilter => searchResults.filter(business => business.price === priceFilter);
+
+  console.log(props.navigation.navigate);
   return (
     <>
       <SearchBar 

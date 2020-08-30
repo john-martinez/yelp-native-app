@@ -1,13 +1,12 @@
 import React from 'react';
-import { View, FlatList, Text, Image, StyleSheet } from 'react-native';
+import { View, FlatList, Text, StyleSheet } from 'react-native';
 import ResultCard from './ResultCard';
 
 const ResultsList = ({ title, data }) => {
   return <View>
     <Text style={ styles.title } > { title }</Text>
     { data.length 
-      ? (
-        <FlatList 
+      ? <FlatList 
           style={ styles.list }
           keyExtractor={ result => result.id }
           horizontal
@@ -16,8 +15,8 @@ const ResultsList = ({ title, data }) => {
           renderItem={ ({ item }) => <ResultCard business={ item } />
           }
         />
-      )
       : <Text style={ styles.subtitle }>No results...</Text>
+      
     }
   </View>
 }
