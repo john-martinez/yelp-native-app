@@ -3,7 +3,7 @@ import { View, FlatList, Text, Image, StyleSheet } from 'react-native';
 import ResultCard from './ResultCard';
 
 const ResultsList = ({ title, data }) => {
-  return <View style={ styles.container }>
+  return <View>
     <Text style={ styles.title } > { title }</Text>
     { data.length 
       ? (
@@ -23,10 +23,6 @@ const ResultsList = ({ title, data }) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingLeft: 15,
-  },
-
   title: {
     fontSize: 25,
     fontWeight: "bold"
@@ -41,7 +37,8 @@ const styles = StyleSheet.create({
   list: {
     borderColor: '#afafaf',
     borderBottomWidth: 1,
-    paddingVertical: 10
+    paddingVertical: 10,
+    marginLeft: 10,
   }
 })
 
